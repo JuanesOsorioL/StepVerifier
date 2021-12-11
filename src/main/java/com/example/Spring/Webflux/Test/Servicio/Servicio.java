@@ -20,7 +20,9 @@ public class Servicio {
     public Flux<String> buscarTodosFiltro() {
         Flux<String> source = Flux.just("John", "Monica", "Mark", "Cloe", "Frank", "Casper", "Olivia", "Emily", "Cate")
                 .filter(name -> name.length() == 4)
-                .map(String::toUpperCase);
+                .map(String::toUpperCase)
+                .concatWith(Mono.error(new IllegalArgumentException("Mensaje de Error"))
+                );
         return source;
     }
 }
